@@ -1,7 +1,7 @@
 # mutelol
-Auto Mute All for League of Legends
+Auto Mute All for the game "League of Legends"
 
-I was angry with people who have a bad-mouth
+I was angry with some people who have a bad-mouth
 
 It was very tiresome that I input "/mute all" everytime entering a game
 
