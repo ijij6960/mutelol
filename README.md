@@ -1,4 +1,4 @@
-# mutelol : Auto Mute All for the game "League of Legends"
+# Auto Mute All for the game "League of Legends"
 
 I was angry with some people who have a bad-mouth
 
