@@ -60,7 +60,7 @@ import javafx.stage.Stage;
 
 public class mutelol extends javafx.application.Application {
 	
-	private boolean isStop = true;
+	private boolean isStop = false;
 	private boolean isMute = false;
 	private int count = 0;
 	private static final int MAX_TITLE_LENGTH = 1024;
@@ -108,117 +108,78 @@ public class mutelol extends javafx.application.Application {
         trayIcon.setImageAutoSize(true);
         tray.add(trayIcon);
    
-        Label label = new Label();
-        label.setText("Initializing...");
-        item1.setLabel("Initializing...");
-  
-        Button btn = new Button();
-        btn.setText("Initialize...");
-		
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-         	
-            @Override
-            public void handle(ActionEvent event) {
-                
-                isStop = !isStop;
-                isMute = false;
-                
-                if (isStop)
-                {
-                	btn.setText("Start");
-                	label.setText("...");
-                	item1.setLabel("...");
-                	return;
-                }
-                else{
-                	btn.setText("Working");
-                }
-                
-            	Thread thread = new Thread() {
-                	@Override public void run() {
-                		
-                		try {
-                    		while(!isStop)
-                    		{
-                    			Thread.sleep(5000);
-                    			
-                    			if (isStop) break;	//반응성을 좋게 하기 위해..
-                    			
-                    			Platform.runLater(()->{
-                    				
-                    				
-                    				String lolFileName = "League of Legends.exe";
-                    				//String lolFileName = "notepad.exe";
-                    				String lolWindowName = "League of Legends (TM) Client";
-                    				
-                    				try {
-                        				if (isMute == false)
-                        	    		{          
-                        					System.out.println("Checking " + count);
-                        					Platform.runLater ( () -> label.setText ("Checking LoL"));
-                        					Platform.runLater ( () -> item1.setLabel("Checking LoL"));
-                        					
-                        					if (checkProcess(lolFileName))
-                        					{
-                        						if (checkActiveWindowTitle(lolWindowName))
-                            	    			{
-                        							Platform.runLater ( () -> label.setText ("Running LoL"));
-                        							Platform.runLater ( () -> item1.setLabel("Running LoL"));
-                        							
-                        							RECT rect = new RECT();
-                        						    GetClientRect(GetForegroundWindow(), rect);
-                        						    System.out.println("GetClientRect : " + rect);
-                        						    
-                        						    POINT point = new POINT((rect.right-rect.left)/2, rect.bottom-2);
-                        						    ClientToScreen(GetForegroundWindow(), point);
-                        						    System.out.println("ClientToScreen : " + point);
-                        						    
-                        							Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
-                            						System.out.println("해상도 : " + res.width + " x " + res.height); 
-                            						
-                        							//if (checkPixel((rect.right - rect.left)/2 + rect.left,rect.bottom-1,82,73,41))
-                        							//if (checkPixel(res.width/2,res.height-2,82,73,41))
-                            						if (checkPixel(point.x, point.y,82,73,41))
-                        							{
-                        								setMacro();
-                        								isMute = true;
-                        							}
-                            	    			}
-                        					}
-                        	    		}
-                        	    		else
-                        	    		{
-                        	    			System.out.println("Waiting " + count);
-                        	    			Platform.runLater ( () -> label.setText ("Playing Game"));
-                        	    			Platform.runLater ( () -> item1.setLabel("Playing LoL"));
-                        	    			
-                        	    			if (checkProcess(lolFileName) == false)
-                        	    				isMute = false;
-                        	    		}
-                        				count = count + 1;
-                    				} catch(Exception e) {e.printStackTrace();}
-                    			});
-                    		}
-                		} catch(Exception e) {e.printStackTrace();}
-                	};
-                };
-                thread.setDaemon(true);
-                thread.start();
-            }
-        });
+        isMute = false;
+        
+    	Thread thread = new Thread() {
+        	@Override public void run() {
+        		
+        		try {
+            		while(!isStop)
+            		{
+            			Thread.sleep(1000);
+            			
+            			Platform.runLater(()->{
+            				
+            				String lolFileName = "League of Legends.exe";
+            				String lolWindowName = "League of Legends (TM) Client";
+            				
+            				try {
+                				if (isMute == false)
+                	    		{          
+                					System.out.println("Checking " + count);
+                					Platform.runLater ( () -> item1.setLabel("Checking LoL"));
+                					
+                					if (checkProcess(lolFileName))
+                					{
+                						if (checkActiveWindowTitle(lolWindowName))
+                    	    			{
+                							Platform.runLater ( () -> item1.setLabel("Running LoL"));
+                							
+                							RECT rect = new RECT();
+                						    GetClientRect(GetForegroundWindow(), rect);
+                						    System.out.println("GetClientRect : " + rect);
+                						    
+                						    POINT point = new POINT((rect.right-rect.left)/2, rect.bottom-2);
+                						    ClientToScreen(GetForegroundWindow(), point);
+                						    System.out.println("ClientToScreen : " + point);
+                						    
+                							Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
+                    						System.out.println("Screen Size : " + res.width + " x " + res.height); 
+                    						
+                							if (checkPixel(point.x, point.y,82,73,41))
+                							{
+                								setMacro();
+                								isMute = true;
+                							}
+                    	    			}
+                					}
+                					else
+                						Thread.sleep(4000);
+                	    		}
+                	    		else
+                	    		{
+                	    			System.out.println("Waiting " + count);
+                	    			Platform.runLater ( () -> item1.setLabel("Playing LoL"));
+                	    			
+                	    			if (checkProcess(lolFileName) == false)
+                	    				isMute = false;
+                	    			
+                	    			Thread.sleep(4000);
+                	    		}
+                				count = count + 1;
+            				} catch(Exception e) {e.printStackTrace();}
+            			});
+            		}
+        		} catch(Exception e) {e.printStackTrace();}
+        	};
+        };
+        
+        thread.setDaemon(true);
+        thread.start();
         
         VBox vbox = new VBox();
-        vbox.setPadding(new Insets(10));
-        vbox.setSpacing(30);
-        vbox.setAlignment(Pos.CENTER);
-       
-        vbox.getChildren().add(label);
-        vbox.getChildren().add(btn);
-        
         primaryStage.setScene(new Scene(vbox, 270, 130));
         primaryStage.hide();
-        
-        btn.fire();
     }
     
     
