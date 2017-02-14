@@ -12,7 +12,7 @@ So I made this.
 
 This program is very simple
 
-1. A smile icon will appear on your tray bard after executing mutelol.exe
+1. A smile icon will appear on your tray bar after executing mutelol.exe
 
 2. It will input "/mute all" automatically when you enter game
 
