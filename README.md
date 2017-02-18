@@ -19,3 +19,4 @@ This program is very simple
 
 #
 p.s. This is my first project for Github. Please advice me about my faults.
+p.s. It's the guide for Riot's third party applications : https://support.riotgames.com
