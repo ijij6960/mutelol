@@ -19,4 +19,5 @@ This program is very simple
 
 #
 p.s. This is my first project for Github. Please advice me about my faults.
-p.s. It's the guide for Riot's third party applications : https://support.riotgames.com
+
+p.s. This is the guide for Riot's third party applications : [https://support.riotgames.com](https://support.riotgames.com/hc/en-us/articles/225266848-Third-Party-Applications)
