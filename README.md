@@ -1,6 +1,6 @@
 # Auto Mute All for the game "League of Legends"
 
-I was angry with some people who are foul mouthed
+I was angry with some people who are foul-mouthed
 
 It was very tiresome that I input "/mute all" everytime entering a game
 
