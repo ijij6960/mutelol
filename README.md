@@ -1,4 +1,5 @@
-# Deprecated this program now
+# This program is deprecated in LOL, now
+
 
 
 ### Auto Mute All for the game "League of Legends"
