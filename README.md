@@ -1,7 +1,6 @@
-#
 # Deprecated this program now
-#
 
+---
 
 # Auto Mute All for the game "League of Legends"
 
