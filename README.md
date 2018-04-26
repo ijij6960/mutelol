@@ -1,3 +1,7 @@
+# Deprecated this program
+
+--------------------------------------------------------------------------------------------
+
 # Auto Mute All for the game "League of Legends"
 
 I was angry with some people who are foul-mouthed
